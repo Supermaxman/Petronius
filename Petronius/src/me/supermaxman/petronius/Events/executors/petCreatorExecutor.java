@@ -6,6 +6,7 @@ import me.supermaxman.petronius.main.Petronius;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public class petCreatorExecutor extends baseExecutor {
     @Override
@@ -25,7 +26,12 @@ public class petCreatorExecutor extends baseExecutor {
     			}
     		}
     		if(!hasPet){
-    		
+    			ItemStack it = player.getItemInHand();
+    			if ((it.getAmount()>1)){
+					it.setAmount(it.getAmount()-1);
+				}else if((it.getAmount()==1)){
+					player.getInventory().removeItem(it);
+				}
         	Pet pet = new Pet(player.getName(), m, player.getLocation(), player.getServer(), 2.1);
         	pet.setName(name);
 			player.sendMessage(ChatColor.BLUE + "[Petronius]: "+pet.getName()+" Has Been Created.");  
