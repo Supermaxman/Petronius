@@ -14,8 +14,8 @@ public class petDeleteExecutor extends baseExecutor {
     	for(Pet pet : Petronius.pets){	
 			if(pet.getOwner().equalsIgnoreCase(player.getName())){
 		        player.sendMessage(ChatColor.RED + "[Petronius]: "+pet.getName()+" Deleted");  
-		        Petronius.pets.remove(pet);
 				pet.killPet();
+				pet.remove();
 			}
 		}
     	}catch(ConcurrentModificationException e){

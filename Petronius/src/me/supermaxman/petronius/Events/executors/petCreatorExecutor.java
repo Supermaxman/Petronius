@@ -36,7 +36,7 @@ public class petCreatorExecutor extends baseExecutor {
             }
         } else {
         	
-            player.sendMessage(ChatColor.RED + "[Petronius]: SYNTAX ERROR, type /cpet [name] [material].");
+            player.sendMessage(ChatColor.RED + "[Petronius]: SYNTAX ERROR, type /cpet [name] with an item in hand.");
             
         }
     }

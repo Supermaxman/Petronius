@@ -33,20 +33,33 @@ public class Pet implements InventoryHolder {
         Petronius.pets.add(this);
         new PetMoveEvent(this);
         this.inv = s.createInventory(this, 9);
+        this.attack = false;
+        this.save();
     }
     
     //inventory
     public void giveItem(ItemStack i){
     	this.inv.addItem(i);
+    	this.save();
     }
     public Inventory getInventory(){
 		return inv;
     }
     public void setInventory(Inventory inv){
 		this.inv =  inv;
+		this.save();
+    }
+    public void dropInventory(){
+    	for(ItemStack i: inv.getContents()){
+        	if(i!=null){
+        	item.getWorld().dropItem(item.getLocation(), i);
+        	inv.remove(i);
+        	}
+    	}
     }
     public void killPet(){
         Petronius.pets.remove(this);
+        this.dropInventory();
         try {
 			this.finalize();
 		} catch (Throwable e) {
@@ -64,6 +77,7 @@ public class Pet implements InventoryHolder {
     //height
     public void setHeight(double h){
     	this.height = h;
+    	this.save();
     }
     public double getHeight(){
 		return height;
@@ -71,6 +85,7 @@ public class Pet implements InventoryHolder {
     //item
     public void setItem(Item i){
     	this.item = i;
+    	this.save();
     }
     public Item getItem(){
 		return item;
@@ -78,6 +93,7 @@ public class Pet implements InventoryHolder {
     //name
     public void setName(String name){
     	this.name = name;
+    	this.save();
     }
     public String getName(){
 		return name;
@@ -85,6 +101,7 @@ public class Pet implements InventoryHolder {
     //type
     public void setType(Material type){
     	this.type = type;
+    	this.save();
     }
     public Material getType(){
 		return type;
@@ -95,6 +112,7 @@ public class Pet implements InventoryHolder {
     }
     public void setOwner(String owner){
 		this.owner = owner;
+		this.save();
     }
     
 
@@ -119,8 +137,12 @@ public class Pet implements InventoryHolder {
         	}
             slot++;
         }
-        this.item.remove();
         Petronius.plugin.saveConfig();
     }
     
+    public void remove() {
+        FileConfiguration config = Petronius.conf;
+        config.set("pets."+owner, null);
+        Petronius.plugin.saveConfig();
+    }
 }

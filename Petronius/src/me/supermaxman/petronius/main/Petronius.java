@@ -76,14 +76,12 @@ public class Petronius extends JavaPlugin{
                 		new ItemStack(Material.valueOf(cs.getString("inventory.items."+slots+".material").toUpperCase()), 
                 		Integer.parseInt(cs.getString("inventory.items."+slots+".amount")), 
                 		Short.parseShort(cs.getString("inventory.items."+slots+".durability"))
-                		//,(byte)Integer.parseInt(cs.getString("inventory.items."+slots+".data"))
+                		,(byte)Integer.parseInt(cs.getString("inventory.items."+slots+".data"))
                 		));
                 	}
                 slots++;
                 }
-                pet.setInventory(inv);
-                pets.add(pet);
-                
+                pet.setInventory(inv);                
                 
             }
 
@@ -94,6 +92,7 @@ public class Petronius extends JavaPlugin{
     public void savePets() {
         for (Pet pet : pets) {
             pet.save();
+            pet.getItem().remove();
         }
         saveConfig();
     }

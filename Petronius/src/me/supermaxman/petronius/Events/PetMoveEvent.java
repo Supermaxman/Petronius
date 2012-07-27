@@ -19,12 +19,15 @@ public class PetMoveEvent {
 					if(i.getServer().getPlayerExact(pet.getOwner())!=null){
 					if(i.isDead()){
 						i.remove();
-						i.getServer().getPlayerExact(pet.getOwner()).sendMessage(ChatColor.RED+pet.getName()+" has died.");
+						i.getServer().getPlayerExact(pet.getOwner()).sendMessage(ChatColor.RED + "[Petronius]: "+pet.getName()+" Has Died.");  
+				        Petronius.pets.remove(pet);
 						pet.killPet();
 						Bukkit.getServer().getScheduler().cancelTask(t);
 					}
 					if(!Petronius.pets.contains(pet)){
-						i.remove();
+						if(i!=null){
+							i.remove();
+						}
 						Bukkit.getServer().getScheduler().cancelTask(t);
 						pet.killPet();
 					}
