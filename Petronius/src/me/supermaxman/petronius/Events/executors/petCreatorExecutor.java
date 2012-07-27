@@ -26,7 +26,7 @@ public class petCreatorExecutor extends baseExecutor {
     		}
     		if(!hasPet){
     		
-        	Pet pet = new Pet(player.getName(), m, player, 2.1);
+        	Pet pet = new Pet(player.getName(), m, player.getLocation(), player.getServer(), 2.1);
         	pet.setName(name);
 			player.sendMessage(ChatColor.BLUE + "[Petronius]: "+pet.getName()+" Has Been Created.");  
             
