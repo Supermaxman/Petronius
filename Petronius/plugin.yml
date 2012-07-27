@@ -1,0 +1,34 @@
+name: Petronius
+main: me.supermaxman.petronius.main.Petronius
+version: 1.0.0
+author: Supermaxman
+description: Pets!
+commands:
+    cpet:
+        description: Create a pet!
+        usage: /<command>
+    createpet:
+        description: Create a pet!
+        usage: /<command>
+    dpet:
+        description: Delete a pet!
+        usage: /<command>
+    deletepet:
+        description: Delete a pet!
+        usage: /<command>
+    pa:
+        description: Attack with a pet!
+        usage: /<command>
+    petattack:
+        description: Attack with a pet!
+        usage: /<command>
+    pi:
+        description: Open pet inventory!
+        usage: /<command>
+    petinventory:
+        description: Open pet inventory!
+        usage: /<command>
+    petinv:
+        description: Open pet inventory!
+        usage: /<command>
+        
