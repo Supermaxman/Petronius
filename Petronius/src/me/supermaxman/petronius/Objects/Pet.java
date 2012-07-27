@@ -29,12 +29,12 @@ public class Pet implements InventoryHolder {
         this.height = height;
         this.item = loc.getWorld().dropItem(loc, new ItemStack(type,1));
         this.item.setPickupDelay(Integer.MAX_VALUE);
+        this.item.setTicksLived(20);
         this.loc = loc;
         Petronius.pets.add(this);
         new PetMoveEvent(this);
         this.inv = s.createInventory(this, 9);
         this.attack = false;
-        this.save();
     }
     
     //inventory
@@ -141,8 +141,16 @@ public class Pet implements InventoryHolder {
     }
     
     public void remove() {
+    	this.item.remove();
         FileConfiguration config = Petronius.conf;
         config.set("pets."+owner, null);
         Petronius.plugin.saveConfig();
+        Petronius.pets.remove(this);
+        this.dropInventory();
+        try {
+			this.finalize();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
     }
 }

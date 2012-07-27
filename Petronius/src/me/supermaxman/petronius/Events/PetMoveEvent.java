@@ -16,20 +16,27 @@ public class PetMoveEvent {
 		t = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(Petronius.plugin, new Runnable(){ 
 			public void run() {	
 					Item i = pet.getItem();
+					if(i==null){
+						pet.dropInventory();
+						Petronius.plugin.getServer().getPlayerExact(pet.getOwner()).sendMessage(ChatColor.RED + "[Petronius]: "+pet.getName()+" Has Died."); 
+				        Petronius.pets.remove(pet);
+						pet.remove();
+						Bukkit.getServer().getScheduler().cancelTask(t);
+						return;
+					}
 					if(i.getServer().getPlayerExact(pet.getOwner())!=null){
 					if(i.isDead()){
-						i.remove();
 						i.getServer().getPlayerExact(pet.getOwner()).sendMessage(ChatColor.RED + "[Petronius]: "+pet.getName()+" Has Died.");  
 				        Petronius.pets.remove(pet);
-						pet.killPet();
+						pet.remove();
 						Bukkit.getServer().getScheduler().cancelTask(t);
+						return;
+
 					}
 					if(!Petronius.pets.contains(pet)){
-						if(i!=null){
-							i.remove();
-						}
+						pet.remove();
 						Bukkit.getServer().getScheduler().cancelTask(t);
-						pet.killPet();
+						return;
 					}
 					if(pet.getAttack()){
 						if(aDelay>=20){
@@ -42,6 +49,7 @@ public class PetMoveEvent {
 					i.setVelocity(new Vector(0,0.1,0));
 					aDelay++;
 					}
+					
 			}
 		},1,1);
 
